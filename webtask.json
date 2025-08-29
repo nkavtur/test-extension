@@ -1,74 +1,46 @@
 {
-  "title": "Auth0 Authorization",
-  "name": "auth0-authz",
-  "codeUrl": "https://raw.githubusercontent.com/nkavtur/test-extension/refs/heads/master/build/bundle.js",
-  "runtime": "node22",
-  "version": "2.12.0",
+  "title": "Delegated Administration Dashboard",
+  "name": "auth0-delegated-admin",
+  "version": "4.6.0",
   "author": "auth0",
-  "description": "This extension gives Auth0 customers the possibility to manage group memberships for their users.",
+  "useHashName": false,
+  "description": "This extension allows non-dashboard administrators to manage (a subset of) users.",
   "type": "application",
-  "logoUrl": "https://cdn.auth0.com/extensions/auth0-authz/assets/logo.svg",
-  "initialUrlPath": "/admins/login",
-  "updateConfirmMessage": "Warning! Read the documentation about breaking changes (https://auth0.com/docs/extensions/authorization-extension) before updating the extension. If you are upgrading from 2.5 or older, you have to rotate your Api Key and republish the rule upon upgrade.",
-  "uninstallConfirmMessage": "You are about to uninstall the \"Authorization Extension\". If you proceed all your data in this extension will be lost. Do you want to continue?",
-  "repository": "https://github.com/auth0/auth0-authorization-extension",
+  "category": "end_user",
+  "logoUrl": "https://cdn.auth0.com/extensions/auth0-delegated-admin/assets/logo.svg",
+  "initialUrlPath": "/",
+  "docsUrl": "https://auth0.com/docs/extensions/delegated-admin",
+  "repository": "https://github.com/auth0-extensions/auth0-delegated-administration-extension",
   "keywords": ["auth0", "extension"],
   "auth0": {
     "createClient": true,
     "onUninstallPath": "/.extensions/on-uninstall",
-    "onUpdatePath": "/.extensions/on-update",
-    "scopes": "read:connections read:resource_servers update:resource_servers delete:resource_servers read:clients delete:clients read:users read:rules create:rules update:rules_configs update:rules delete:rules"
+    "scopes": "read:clients delete:clients read:connections read:connections_options read:users update:users delete:users create:users read:logs read:device_credentials update:device_credentials delete:device_credentials delete:guardian_enrollments"
   },
   "secrets": {
-    "STORAGE_TYPE": {
-      "description": "Choose the storage type for the database",
-      "type": "select",
-      "required": true,
-      "default": "webtask",
-      "allowMultiple": false,
-      "options": [
-        {
-          "value": "webtask",
-          "text": "Webtask Storage"
-        },
-        {
-          "value": "s3",
-          "text": "Amazon S3"
-        }
-      ]
+    "EXTENSION_CLIENT_ID": {
+      "description": "Client ID of the application you created in the Auth0 Dashboard",
+      "required": true
     },
-    "S3_BUCKET": {
-      "description": "Your S3 Bucket",
-      "example": "my-bucket",
-      "required": true,
-      "visibleIf": {
-        "STORAGE_TYPE": "s3"
-      }
+    "TITLE": {
+      "description": "Custom title for the dashboard",
+      "example": "Fabrikam User Management",
+      "required": false
     },
-    "S3_PATH": {
-      "description": "Path to the JSON file",
-      "required": true,
-      "example": "/auth0-authz.json",
-      "default": "/auth0-authz.json",
-      "visibleIf": {
-        "STORAGE_TYPE": "s3"
-      }
+    "CUSTOM_CSS": {
+      "description": "A CSS file containing custom styles for the extension",
+      "example": "https://cdn.fabrikam.com/static/extensions/theme/fabrikam.css",
+      "required": false
     },
-    "S3_KEY": {
-      "description": "Your S3 Key ID",
-      "required": true,
-      "example": "AKIAJL.........",
-      "visibleIf": {
-        "STORAGE_TYPE": "s3"
-      }
+    "FAVICON_PATH": {
+      "description": "Path to custom favicon",
+      "example": "https://cdn.fabrikam.com/static/extensions/theme/favicon.png",
+      "required": false
     },
-    "S3_SECRET": {
-      "description": "Your S3 Key Secret",
-      "required": true,
-      "example": "r3UOMBA......................",
-      "visibleIf": {
-        "STORAGE_TYPE": "s3"
-      }
+    "AUTH0_CUSTOM_DOMAIN": {
+      "description": "Custom domain",
+      "example": "example.com",
+      "required": false
     },
     "USER_SEARCH_ENGINE": {
       "description": "User search engine. Cloud only supports V3",
@@ -83,6 +55,21 @@
         {
           "value": "v2",
           "text": "v2"
+        }
+      ]
+    },
+    "FEDERATED_LOGOUT": {
+      "description": "Also sign out from the IDP when users logout?",
+      "type": "select",
+      "allowMultiple": false,
+      "options": [
+        {
+          "value": "false",
+          "text": "No"
+        },
+        {
+          "value": "true",
+          "text": "Yes"
         }
       ]
     }
