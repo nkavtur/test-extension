@@ -1,6 +1,7 @@
 {
   "title": "Delegated Administration Dashboard",
   "name": "auth0-delegated-admin",
+  "codeUrl": "https://raw.githubusercontent.com/nkavtur/test-extension/refs/heads/master/build/bundle.js",
   "version": "4.6.0",
   "author": "auth0",
   "useHashName": false,
